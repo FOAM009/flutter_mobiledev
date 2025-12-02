@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Text(
             "Change Calculate",
             style: TextStyle(
-              fontSize: 36,
+              fontSize: 24,
               fontFamily: "maa",
               fontWeight: FontWeight.w700,
               fontStyle: FontStyle.italic,
@@ -59,7 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Colors.pinkAccent,
             ),
           ),
-          Image.asset("assets/food.png", width: 200, height: 200),
+          Image.asset("assets/food.png", width: 100, height: 100),
+          Image.network(
+            "https://media1.tenor.com/m/hi610Pd9rWAAAAAC/quby.gif",
+            width: 100,
+            height: 100,
+          ),
           priceTextField(),
           amountTextField(),
           calculateButton(),
