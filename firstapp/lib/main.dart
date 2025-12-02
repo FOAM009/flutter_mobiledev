@@ -47,6 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
+          Text(
+            "Change Calculate",
+            style: TextStyle(fontSize: 24, fontFamily: "maa"),
+          ),
           SizedBox(height: 8.0),
           priceTextField(),
           amountTextField(),
