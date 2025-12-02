@@ -47,11 +47,19 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
+          SizedBox(height: 8.0),
           Text(
             "Change Calculate",
-            style: TextStyle(fontSize: 24, fontFamily: "maa"),
+            style: TextStyle(
+              fontSize: 36,
+              fontFamily: "maa",
+              fontWeight: FontWeight.w700,
+              fontStyle: FontStyle.italic,
+              color: Colors.blue,
+              backgroundColor: Colors.pinkAccent,
+            ),
           ),
-          SizedBox(height: 8.0),
+          Image.asset("assets/food.png", width: 200, height: 200),
           priceTextField(),
           amountTextField(),
           calculateButton(),
