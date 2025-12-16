@@ -1,3 +1,6 @@
+import 'package:firstapp/pages/calc.dart';
+import 'package:firstapp/pages/contact.dart';
+import 'package:firstapp/pages/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,136 +34,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var price = TextEditingController();
-  var amount = TextEditingController();
-  var change = TextEditingController();
-  double _total = 0;
-  double _change = 0;
+  int _currentIndex = 0;
+  final tabs = [Homepage(), Calculatepage(), Contactpage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: [
-          SizedBox(height: 8.0),
-          Text(
-            "Change Calculate",
-            style: TextStyle(
-              fontSize: 24,
-              fontFamily: "maa",
-              fontWeight: FontWeight.w700,
-              fontStyle: FontStyle.italic,
-              color: Colors.blue,
-              backgroundColor: Colors.pinkAccent,
-            ),
+      appBar: AppBar(title: Text(widget.title)),
+      body: tabs[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calculate_rounded),
+            label: "Calculate",
           ),
-          Image.asset("assets/food.png", width: 100, height: 100),
-          Image.network(
-            "https://media1.tenor.com/m/hi610Pd9rWAAAAAC/quby.gif",
-            width: 100,
-            height: 100,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contact_mail),
+            label: "Contact",
           ),
-          priceTextField(),
-          amountTextField(),
-          calculateButton(),
-          showTotalText(),
-          receiveMoneyTextField(),
-          changeCalculateBotton(),
-          showChangeText(),
         ],
-      ),
-    );
-  }
 
-  Widget priceTextField() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: price,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: "price per item",
-        ),
-        keyboardType: TextInputType.numberWithOptions(),
-      ),
-    );
-  }
-
-  Widget amountTextField() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: amount,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: "amount of item",
-        ),
-        keyboardType: TextInputType.numberWithOptions(),
-      ),
-    );
-  }
-
-  Widget calculateButton() {
-    return ElevatedButton(
-      onPressed: () {
-        if (price.text.isNotEmpty && amount.text.isNotEmpty) {
+        onTap: (index) {
           setState(() {
-            _total = double.parse(price.text) * double.parse(amount.text);
+            print(index);
+            _currentIndex = index;
           });
-        }
-      },
-      child: Text("Calculate Total "),
-    );
-  }
-
-  Widget showTotalText() {
-    return Text("Total: $_total Baht");
-  }
-
-  Widget receiveMoneyTextField() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: change,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: "get money",
-        ),
+        },
       ),
     );
-  }
-
-  Widget changeCalculateBotton() {
-    return ElevatedButton(
-      onPressed: () {
-        if (price.text.isNotEmpty &&
-            amount.text.isNotEmpty &&
-            change.text.isNotEmpty) {
-          double total = double.parse(price.text) * double.parse(amount.text);
-          double money = double.parse(change.text);
-
-          if (money < total) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text("money is not enough")));
-            return;
-          }
-
-          setState(() {
-            _change = money - total;
-          });
-        }
-      },
-      child: Text("Calculate Change"),
-    );
-  }
-
-  Widget showChangeText() {
-    return Text("Change: $_change Baht");
   }
 }
