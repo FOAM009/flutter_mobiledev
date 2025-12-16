@@ -17,11 +17,11 @@ class _CalculatepageState extends State<Calculatepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
 
-        title: Text(widget.toString()),
-      ),
+      //   title: Text(widget.toString()),
+      // ),
       body: Column(
         children: [
           SizedBox(height: 8.0),

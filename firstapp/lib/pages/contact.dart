@@ -10,6 +10,10 @@ class Contactpage extends StatefulWidget {
 class _ContactpageState extends State<Contactpage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ListView(
+      children: [
+        Center(child: Column(children: [Text("Aj TUI"), Text("@CAMT114")])),
+      ],
+    );
   }
 }
