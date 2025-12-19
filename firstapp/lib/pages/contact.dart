@@ -1,3 +1,4 @@
+import 'package:firstapp/pages/calc.dart';
 import 'package:flutter/material.dart';
 
 class Contactpage extends StatefulWidget {
@@ -16,11 +17,17 @@ class _ContactpageState extends State<Contactpage> {
     return ListView.builder(
       itemBuilder: (context, index) {
         return ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Calculatepage()),
+            );
+          },
           leading: Icon(Icons.map),
-          title: Text(items[index]),
+          title: Text(mydata[index]),
         );
       },
+      itemCount: mydata.length,
     );
   }
 }
