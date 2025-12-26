@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firstapp/pages/detail.dart';
 import 'package:flutter/material.dart';
 
@@ -11,33 +13,30 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: [
-        MyBox(
-          "What is a computer?",
-          "Computer is a things to calculate and fo any other works",
-          "https://media1.tenor.com/m/b0cev0cRVSYAAAAC/yes-chef.gif",
-        ),
-        SizedBox(height: 20),
-        MyBox(
-          "What is a Flutter?",
-          "Flutter is a tool to create a mobile application",
-          "https://media1.tenor.com/m/vYrfrjSAI4QAAAAd/chef-muppets.gif",
-        ),
-        SizedBox(height: 20),
-        MyBox(
-          "What is a Dart?",
-          "Dart is the language used in Flutter",
-          "https://media1.tenor.com/m/jG-m1kDAe5oAAAAd/cooking-cook.gif",
-        ),
-        SizedBox(height: 20),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: FutureBuilder(
+        builder: (context, snapshot) {
+          var data = json.decode(snapshot.data.toString());
+          return ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return MyBox(
+                data[index]['title'],
+                data[index]['subtitle'],
+                data[index]['img_url'],
+              );
+            },
+            itemCount: data.length,
+          );
+        },
+        future: DefaultAssetBundle.of(context).loadString('assets/data.json'),
+      ),
     );
   }
 
   Widget MyBox(String title, String subtitle, String img_url) {
     return Container(
+      margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.all(20),
       height: 150,
       decoration: BoxDecoration(
