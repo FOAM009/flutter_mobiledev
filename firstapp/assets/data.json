@@ -1,17 +1,20 @@
 [
     {
         "title":"What is a computer?",
-        "subtitle":"omputer is a things to calculate and fo any other works",
-        "img_url":"https://media1.tenor.com/m/b0cev0cRVSYAAAAC/yes-chef.gif"
+        "subtitle":"Computer is a things to calculate and fo any other works",
+        "img_url":"https://media1.tenor.com/m/b0cev0cRVSYAAAAC/yes-chef.gif",
+        "detail":"A computer is an electronic device that accepts data and processes it according to given instructions.\n\nIt is commonly used for calculating numbers, storing information, browsing the internet, creating documents, and running applications.\n\nComputers help people work faster, more accurately, and more efficiently in daily life, education, and business."
     },
     {
         "title":"What is a Flutter?",
         "subtitle":"Flutter is a tool to create a mobile application",
-        "img_url":"https://media1.tenor.com/m/vYrfrjSAI4QAAAAd/chef-muppets.gif"
+        "img_url":"https://media1.tenor.com/m/vYrfrjSAI4QAAAAd/chef-muppets.gif",
+        "detail":"Flutter is an open-source UI software development toolkit created by Google.\n\nIt allows developers to build beautiful, fast, and natively compiled mobile, web, and desktop applications from a single codebase.\n\nFlutter uses widgets to create flexible and modern user interfaces."
     },
     {
         "title":"What is a Dart?",
         "subtitle":"Dart is the language used in Flutter",
-        "img_url":"https://media1.tenor.com/m/jG-m1kDAe5oAAAAd/cooking-cook.gif"
+        "img_url":"https://media1.tenor.com/m/jG-m1kDAe5oAAAAd/cooking-cook.gif",
+        "detail":"Dart is a programming language developed by Google.\n\nIt is mainly used for building Flutter applications.\n\nDart is designed to be easy to learn, fast, and efficient.\n\nIt supports both object-oriented and functional programming styles and helps developers create high-performance applications."
     }
 ]
