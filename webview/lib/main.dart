@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter WebView',
       theme: ThemeData(
         colorScheme: .fromSeed(
           seedColor: const Color.fromARGB(255, 33, 92, 170),
@@ -33,17 +33,44 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late WebViewController _controller;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (url) {
+            print("page started loading: $url");
+            setState(() {
+              _isLoading = true;
+            });
+          },
+          onPageFinished: (url) {
+            print("page finished loading: $url");
+            setState(() {
+              _isLoading = false;
+            });
+          },
+          onNavigationRequest: (request) {
+            if (request.url.startsWith("https://flutter.dev") ||
+                request.url.startsWith("https://docs.flutter.dev")) {
+              return NavigationDecision.navigate;
+            }
+            print("blocking navigation to ${request.url}");
+            return NavigationDecision.prevent;
+          },
+        ),
+      )
       // Load from URL
-      // ..loadRequest(Uri.parse("https://flutter.dev/"));
-      // Load from asset file: 'assets/index.html'
-      // ..loadFlutterAsset('assets/index.html') ;
-      // Load from HTML string
+      ..loadRequest(Uri.parse("https://flutter.dev/"));
+    // Load from asset file: 'assets/index.html'
+    // ..loadFlutterAsset('assets/index.html');
+
+    // Load from HTML string
+    /*
       ..loadHtmlString('''
       <!DOCTYPE html>
 <html>
@@ -171,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
 </html>
 
 ''');
+*/
   }
 
   @override
@@ -178,9 +206,43 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text("WebView Navigation & Events"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () async {
+              if (await _controller.canGoBack()) {
+                _controller.goBack();
+              }
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_forward_ios),
+            onPressed: () async {
+              if (await _controller.canGoForward()) {
+                _controller.goForward();
+              }
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              _controller.reload();
+            },
+          ),
+        ],
       ),
-      body: WebViewWidget(controller: _controller),
+      body: Stack(
+        children: [
+          WebViewWidget(controller: _controller),
+
+          if (_isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.2),
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+        ],
+      ),
     );
   }
 }
